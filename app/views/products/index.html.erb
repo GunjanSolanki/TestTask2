@@ -1,0 +1,30 @@
+<h1>Products Catalog</h1><br>
+<% if @products.any? %>
+  <table border= '1'>
+    <%= render "product_heading" %>
+    
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.description %></td>
+        <td><%= product.sku %></td>
+        <td><%= product.product_type.name %></td>
+        <% unless current_user.admin? %>
+          <td><%= link_to 'Add Variant', edit_product_path(product) %></td>
+        <% else %>
+          <td><%= link_to 'Show Product', product_path(product) %></td>
+          <td><%= link_to 'Delete Product', product_path(product), method: :delete, data: { confirm: "Are you sure?" } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+
+  </table>
+<% else %>
+  <h3>No Product Found!</h3>
+<% end %>
+
+<% if current_user.admin? %>
+  <br><td><%= link_to 'Create Product', new_product_path %></td>
+<% end %>
+
+<br><br><%= link_to 'Back to Home Page', root_path %>
