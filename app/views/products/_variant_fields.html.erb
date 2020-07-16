@@ -1,0 +1,14 @@
+<p>
+  <%= vf.label :sku %><br>
+  <%= vf.collection_select :id, @product&.variants.all, :id, :sku %>
+</p>
+
+<p>
+  <%= vf.label :price %><br>
+  <%= vf.collection_select :id, @product&.variants.all, :id, :price %>
+</p>
+
+<p>
+  <%= vf.label :quantity %><br>
+  <%= vf.collection_select :id, @product&.variants.all, :id, :quantity %>
+</p>

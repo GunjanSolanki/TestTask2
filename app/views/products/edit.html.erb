@@ -3,69 +3,72 @@
 
 <%= form_for @product do |form| %>
   <% if @product.errors.any? %>
-    <h2>
-      <%= pluralize(@product.errors.count, "error") %> prohibited
-      from creating the product!:
-    </h2>
-    <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <div id= "error_explanation"> 
+      <h2>
+        <%= pluralize(@product.errors.count, "error") %> prohibited
+        from creating the product!:
+      </h2>
+      <ul>
+        <% @product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
+  <div id= "field">
+    <p>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </p>
+  </div>
 
-  <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </p>
+  <div id= "field">
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+  </div>
 
-  <p>
-    <%= form.label :sku %><br>
-    <%= form.text_field :sku %>
-  </p>
+  <div id= "field">
+    <p>
+      <%= form.label :sku %><br>
+      <%= form.text_field :sku %>
+    </p>
+  </div>
 
-  <p>
-    <%= form.label :product_type %><br>
-    <%= form.text_field :product_type_id, value: @product.product_type&.name %>
-  </p>
+  <div id= "field">
+    <p>
+      <%= form.label :product_type %><br>
+      <%= form.text_field :product_type_id, value: @product.product_type&.name %>
+    </p>
+  </div>
 
   <p><b>Add Product Variant</b></p>
 
-  <%= form.fields_for :variants do |vf| %>
-    <p>
-      <%= vf.label :sku %><br>
-      <%= vf.collection_select :id, @product&.variants.all, :id, :sku %>
-    </p>
+  <div id= "field">
+    <%= form.fields_for :variants do |vf| %>
+      
+      <%= render 'variant_fields', vf: vf %>%
 
-    <p>
-      <%= vf.label :price %><br>
-      <%= vf.collection_select :id, @product&.variants.all, :id, :price %>
-    </p>
+      <%= vf.fields_for :options do |of| %>
+        <p>
+          <%= of.label :option_type %><br>
+          <%= of.select :option_type, options_for_select(@supported_option_types) %>
+        </p>
 
-    <p>
-      <%= vf.label :quantity %><br>
-      <%= vf.collection_select :id, @product&.variants.all, :id, :quantity %>
-    </p>
-
-    <%= vf.fields_for :options do |of| %>
-      <p>
-        <%= of.label :option_type %><br>
-        <%= of.select :option_type, options_for_select(@supported_option_types) %>
-      </p>
-
-      <p>
-        <%= of.label :option_value %><br>
-        <%= of.select :option_value, options_for_select(@options.collect(&:option_value).flatten) %>
-      </p>
+        <p>
+          <%= of.label :option_value %><br>
+          <%= of.select :option_value, options_for_select(@options.collect(&:option_value).flatten) %>
+        </p>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
-  <p>
-    <%= form.submit :SaveProduct %><br>
-  </p>
+  <div id= "actions">
+    <p>
+      <%= form.submit :SaveProduct %><br>
+    </p>
+  </div>
+  
 <% end %>
