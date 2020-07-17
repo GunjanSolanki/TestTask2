@@ -1,0 +1,14 @@
+<p>
+  <%= vf.label :sku %><br>
+  <%= vf.select :sku, options_for_select(@product.variants.collect(&:sku)) %>
+</p>
+
+<p>
+  <%= vf.label :price %><br>
+  <%= vf.select :price, options_for_select(@product.variants.collect(&:price)) %>
+</p>
+
+<p>
+  <%= vf.label :quantity %><br>
+  <%= vf.select :quantity, options_for_select(@product.variants.collect(&:quantity)) %>
+</p>

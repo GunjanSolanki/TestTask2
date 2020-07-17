@@ -1,0 +1,9 @@
+<p>
+  <%= of.label :option_type %><br>
+  <%= of.select :option_type, options_for_select(@supported_option_types) %>
+</p>
+
+<p>
+  <%= of.label :option_value %><br>
+  <%= of.select :option_value, options_for_select(@options.collect(&:option_value).flatten) %>
+</p>

@@ -1,7 +1,7 @@
 <h1>Products Catalog</h1><br>
 <% if @products.any? %>
   <table border= '1'>
-    <%= render "product_heading" %>
+    <%= render "products_heading" %>
     
     <% @products.each do |product| %>
       <tr>
@@ -9,8 +9,12 @@
         <td><%= product.description %></td>
         <td><%= product.sku %></td>
         <td><%= product.product_type.name %></td>
+        <td><%= product.variants.collect(&:sku) %></td>
+        <td><%= product.variants.collect(&:price) %></td>
+        <td><%= product.variants.collect(&:quantity) %></td>
+
         <% unless current_user.admin? %>
-          <td><%= link_to 'Add Variant', edit_product_path(product) %></td>
+          <td><%= link_to 'Customize Product', edit_product_path(product) %></td>
         <% else %>
           <td><%= link_to 'Show Product', product_path(product) %></td>
           <td><%= link_to 'Delete Product', product_path(product), method: :delete, data: { confirm: "Are you sure?" } %></td>

@@ -1,12 +1,24 @@
 <h1>Product <%= @product.id %></h1>
 
 <table border= '1'>
-  <%= render "product_heading" %>
+  <%= render "products_heading" %>
   <tr>
     <td><%= @product.title %></td>
     <td><%= @product.description %></td>
     <td><%= @product.sku %></td>
     <td><%= @product.product_type.name %></td>
+    <% unless current_user.admin? %>
+      <td><%= @variant['sku'] %></td>
+      <td><%= @variant['price'] %></td>
+      <td><%= @variant['quantity'] %></td>
+      <td><%= @options['option_type'] %></td>
+      <td><%= @options['option_value'] %></td>
+    <% else %>
+      <td><%= @product.variants.collect(&:sku) %>
+      <td><%= @product.variants.collect(&:price) %>
+      <td><%= @product.variants.collect(&:quantity) %>
+    <% end %>
+
   </tr>
 </table>
 

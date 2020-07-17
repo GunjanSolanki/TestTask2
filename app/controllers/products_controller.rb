@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :add_variant_to_product, only: :update
+  before_action :add_options_to_variant, only: :update
 
   def index
     @products ||= Product.all.most_recent
@@ -31,11 +33,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(product_params)
-      redirect_to @product
-    else
-      render 'edit'
-    end
+    @product.update(product_params) ? (render 'show') : (render 'edit')
   end
 
   def destroy
@@ -47,11 +45,20 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:title, :description, :sku, :product_type_id, 
-                                    variants_attributes: [:id, :product_id, :sku, :price, :quantity])
+                                    variants_attributes: [:id, :sku, :price, :quantity])
   end
 
   def set_product
     @product = Product.find(params.dig(:id))
+  end
+
+  def add_variant_to_product
+    @variant = {}
+    @variant.merge!(product_params.dig(:variants_attributes, '0'))
+  end
+
+  def add_options_to_variant
+    @options = params.dig(:product, :options)
   end
 
 end

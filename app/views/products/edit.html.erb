@@ -40,7 +40,7 @@
   <div id= "field">
     <p>
       <%= form.label :product_type %><br>
-      <%= form.text_field :product_type_id, value: @product.product_type&.name %>
+      <%= form.collection_select :product_type_id, ProductType.all, :id, :name %>
     </p>
   </div>
 
@@ -49,19 +49,18 @@
   <div id= "field">
     <%= form.fields_for :variants do |vf| %>
       
-      <%= render 'variant_fields', vf: vf %>%
+      <%= render 'variants/variant_fields', vf: vf %>
 
-      <%= vf.fields_for :options do |of| %>
-        <p>
-          <%= of.label :option_type %><br>
-          <%= of.select :option_type, options_for_select(@supported_option_types) %>
-        </p>
+    <% end %>
+  </div>
 
-        <p>
-          <%= of.label :option_value %><br>
-          <%= of.select :option_value, options_for_select(@options.collect(&:option_value).flatten) %>
-        </p>
-      <% end %>
+  <p><b>Add Options for Variant</b></p>
+
+  <div id= "field">
+    <%= form.fields_for :options do |of| %>
+      
+      <%= render 'options/option_fields', of: of %>
+
     <% end %>
   </div>
 
