@@ -1,5 +1,5 @@
 
-<h1>Add Product Variations</h1>
+<h1><%= t('product.add_variations') %></h1>
 
 <%= form_for @product do |form| %>
   <% if @product.errors.any? %>
@@ -44,7 +44,7 @@
     </p>
   </div>
 
-  <p><b>Add Product Variant</b></p>
+  <p><b><%= t('product.add_variant') %></b></p>
 
   <div id= "field">
     <%= form.fields_for :variants do |vf| %>
@@ -54,7 +54,7 @@
     <% end %>
   </div>
 
-  <p><b>Add Options for Variant</b></p>
+  <p><b><%= t('variant.add_option') %></b></p>
 
   <div id= "field">
     <%= form.fields_for :options do |of| %>

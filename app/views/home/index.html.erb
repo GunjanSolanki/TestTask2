@@ -1,20 +1,20 @@
 
 <% if user_signed_in? %>
   <% if current_user.admin? %>
-    <h1>Welcome to Sellar Champ</h1><br>
-    <h3>Admin Panel</h3><br>
-    <p><%= link_to  "Show Products", products_path %></p><br>
-    <p><%= link_to  "Create Product", new_product_path %></p><br>
-    <p><%= link_to  "Sign Out", destroy_user_session_path, method: :delete %></p><br>
+    <h1><%= t('welcome') %></h1><br>
+    <h3><%= t('admin_panel') %></h3><br>
+    <p><%= link_to t('show_product'), products_path %></p><br>
+    <p><%= link_to t('create_product'), new_product_path %></p><br>
+    <p><%= link_to t('sign_out'), destroy_user_session_path, method: :delete %></p><br>
   <% else %>
-    <h1>Welcome to Sellar Champ <%= current_user.name %></h1><br>
-    <p><%= link_to  "Show Products", products_path %></p><br>
-    <p><%= link_to  "Sign Out", destroy_user_session_path, method: :delete %></p><br>
+    <h1><%= t('welcome') %> <%= current_user.name %></h1><br>
+    <p><%= link_to t('show_product'), products_path %></p><br>
+    <p><%= link_to t('sign_out'), destroy_user_session_path, method: :delete %></p><br>
   <% end %>
 <% else %>
-  <h1>Welcome to Sellar Champ</h1><br>
-  <p><%= link_to  "Create Account", new_user_registration_path %><br>
-  <p><%= link_to  "Sign In", new_user_session_path %><br>
+  <h1><%= t('welcome') %></h1><br>
+  <p><%= link_to t('show_product'), new_user_registration_path %><br>
+  <p><%= link_to t('sign_in'), new_user_session_path %><br>
 <% end %>
 
 

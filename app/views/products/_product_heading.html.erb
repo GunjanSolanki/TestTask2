@@ -1,13 +1,7 @@
 <tr>
-  <th>Product Title</th>
-  <th>Product Description</th>
-  <th>Product SKU</th>
-  <th>Product Type</th>
-  <th>Variant Sku</th>
-  <th>Variant Price</th>
-  <th>Variant Quantity</th>
+  <%= render 'heading' %>
   <% unless current_user.admin? %>
-    <th>Option Type</th>
-    <th>Option Value</th>
+    <th><%= t('option.type') %>/th>
+    <th><%= t('option.value') %></th>
   <% end %>
 </tr>

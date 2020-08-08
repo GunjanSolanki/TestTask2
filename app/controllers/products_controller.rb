@@ -15,11 +15,10 @@ class ProductsController < ApplicationController
     if current_user.admin?
       @product = current_user.products.new(product_params)
 
-      @product.save ? ( redirect_to products_path, notice: "Product created." )
-                    : ( flash.now[:alert] = "Unable to create the product!" )
-
+      redirect_to products_path, notice: t('product.created') if @product.save
+      flash.now[:alert] = t('product.not_created')
     else
-      redirect_to root_path, alert: "Access denied!"
+      redirect_to root_path, alert: t('access_denied')
     end
   end
 
@@ -38,7 +37,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product.destroy
-    redirect_to products_path, notice: "Product deleted!"
+    redirect_to products_path, notice: t('product.deleted!')
   end
   
   private
